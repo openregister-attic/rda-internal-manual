@@ -1,0 +1,9 @@
+@import 'spina';
+
+textarea {
+  min-height: auto;
+
+  #page_form & {
+    min-height: 300px;
+  }
+}

@@ -1,0 +1,31 @@
+- @page_title = @page.seo_title
+- @page_description = @page.description
+
+%nav{class: "breadcrumbs", "aria-label" => "Breadcrumbs"}
+  %ol{itemscope: "", itemtype: "http://schema.org/BreadcrumbList"}
+    %li{class: "breadcrumbs__item", itemprop: "itemListElement", itemscope: "", itemtype: "http://schema.org/ListItem"}
+      = link_to root_path, itemprop: "item" do
+        %span{itemprop: "name"} RDA Internal Manual
+    - if @page.ancestors.present?
+      - @page.ancestors.each do |ancestor|
+        %li{class: "breadcrumbs__item", itemprop: "itemListElement", itemscope: "", itemtype: "http://schema.org/ListItem"}
+          = link_to ancestor.materialized_path, itemprop: "item" do
+            %span{itemprop: "name"}= ancestor.menu_title
+    %li{class: "breadcrumbs__item breadcrumbs__item--active", itemprop: "itemListElement", itemscope: "", itemtype: "http://schema.org/ListItem"}
+      %a{href: "#main", itemprop: "item"}
+        %span{itemprop: "name"}= @page.menu_title
+
+.container
+  .grid-row
+    - if @page.has_children? || @page.parent.present?
+      .column-one-third
+        %nav.sub-navigation
+          %ol{itemscope: "", itemtype: "http://schema.org/ItemList"}
+            - @page.root.children.sort.each do |child|
+              %li{class: "sub-navigation__item #{'sub-navigation__item--active' if child == @page }", itemprop: "itemListElement", itemscope: "", itemtype: "http://schema.org/ListItem"}
+                = link_to child.materialized_path, itemprop: "item" do
+                  %span{itemprop: "name"}= child.seo_title
+
+    .column-two-thirds
+      .govspeak
+        = govspeak(@page.content(:text))

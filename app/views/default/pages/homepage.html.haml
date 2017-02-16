@@ -1,0 +1,9 @@
+- @page_title = @page.seo_title
+- @page_description = @page.description
+
+.container
+  .grid-row
+    .column-two-thirds
+      %section.content-section
+        .govspeak
+          = govspeak(@page.content(:text))
