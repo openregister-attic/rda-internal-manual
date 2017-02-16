@@ -1,6 +1,6 @@
 ---
 applications:
-- name: registers_internal_manual
+- name: rda-internal-manual
   memory: 256MB
   buildpack: ruby_buildpack
   instances: 2
