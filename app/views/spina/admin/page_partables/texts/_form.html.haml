@@ -2,4 +2,4 @@
   = f.object.title
 .horizontal-form-content
   = f.fields_for :page_partable, f.object.page_partable do |ff|
-    = ff.text_area :content
+    ~ ff.text_area :content
